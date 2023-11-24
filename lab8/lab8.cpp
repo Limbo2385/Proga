@@ -8,7 +8,6 @@
 #include <windows.h>
 #include <stdbool.h>
 
-//#define NO_PRINT
 
 typedef struct node {
 	int x;
@@ -16,19 +15,29 @@ typedef struct node {
 } node;
 
 void printMatrix(int** matrix, int size) {
-	printf("# ");
+	printf("#  ");
 	for (int i = 0; i < size; i++) {
 		printf("%d ", i + 1);
+	}
+	printf("\n  ");
+	for (int i = 0; i < size; i++) {
+		printf("--");
 	}
 	printf("\n");
 
 	for (int i = 0; i < size; i++) {
-		printf("%d ", i + 1);
+		printf("%d| ", i + 1);
 		for (int j = 0; j < size; j++) {
 			printf("%d ", matrix[i][j]);
 		}
-		printf("\n");
+		printf("|\n");
 	}
+	printf("  ");
+	for (int i = 0; i < size; i++) {
+		printf("--");
+	}
+	printf("\n");
+
 }
 int main() {
 	setlocale(LC_ALL, "Russian");
@@ -55,27 +64,22 @@ int main() {
 			matrix[j][i] = random; // Заполнение элементов и их симметричных пар
 		}
 	}
-	//	int matrix[6][6] = {
-	//			{0, 1, 1, 0, 0, 1},
-	//			{1, 0, 0, 1, 0, 0},
-	//			{1, 0, 0, 0, 1, 0},
-	//			{0, 1, 0, 0, 0, 0},
-	//			{0, 0, 1, 0, 0, 0},
-	//			{1, 0, 0, 0, 0, 0},
-	//	};
 
-#ifndef NO_PRINT
-	printMatrix(matrix, size);
-#endif
+	//printMatrix(matrix, size);
 
-	//	2
+
 	int* num = (int*)calloc(size, sizeof(int)); // 1.1
 	int i = 1;
-#ifndef NO_PRINT
+	int p = 0;
 	printf("enter start vertex number:\n");
-	scanf("%d", &i);
+	scanf("%d", &p);
+	while (p < 0 || p > size) {
+		printf("Takoy vershini ne mojet bit\nVvediti nornalnuy vershiny\n");
+		scanf("%d", &p);
+	}
+
+	i = p;
 	printf("----\n");
-#endif
 	i--;
 
 
@@ -107,15 +111,19 @@ int main() {
 				q_last = NULL;
 
 			done = true;
-			for (int i2 = 1; i2 < size; i2++)
-				if (matrix[i][i2] == 1)
+			for (int i2 = 1; i2 <= size; i2++) {
+				if (matrix[i][i2] == 1) {
 					done = false;
+				}
+				if (i == 0 && i2 == 1) {
+					done = false;
+				}
+			}
 			if (done)
 				break;
 
-#ifndef NO_PRINT
-			printf("%d\n", f->x + 1); // 2.7.
-#endif
+			//printf("%d\n", f->x + 1); // 2.7.
+			//printf("\n");
 			free(f);
 			for (int i2 = 1; i2 < size; i2++) { // 2.8.
 				if (matrix[i][i2] == 1 && num[i2] == false) { // 2.9.
@@ -183,10 +191,7 @@ int main() {
 			if (done)
 				break;
 
-#ifndef NO_PRINT
-			printf("%d\n", x + 1); // 2.7.
-#endif
-
+			//printf("%d\n", x + 1); // 2.7.
 			for (int i2 = 1; i2 < size; i2++) { // 2.8.
 				if (matrix[i][i2] == 1 && num[i2] == false) { // 2.9.
 					q.push(i2);
@@ -199,7 +204,7 @@ int main() {
 
 	}
 	time_end = clock();
-
+		
 	fflush(stdout);
 	setbuf(stdout, NULL);
 
@@ -207,8 +212,9 @@ int main() {
 	printf("time elapsed: %fms\n", diff);
 
 
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < size; i++) {
 		free(matrix[i]);
+	}
 	free(matrix);
 	free(num);
 
