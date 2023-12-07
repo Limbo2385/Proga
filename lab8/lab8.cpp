@@ -65,7 +65,7 @@ int main() {
 		}
 	}
 
-	//printMatrix(matrix, size);
+	printMatrix(matrix, size);
 
 
 	int* num = (int*)calloc(size, sizeof(int)); // 1.1
