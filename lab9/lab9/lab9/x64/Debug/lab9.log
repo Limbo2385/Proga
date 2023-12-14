@@ -1,0 +1,4 @@
+﻿  lab9.cpp
+C:\Users\Limbo\OneDrive\Desktop\progr\Proga\lab9\lab9\lab9\lab9.cpp(90,49): warning C4805: ==: небезопасное смешение типа "int" и типа "bool" в операции
+C:\Users\Limbo\OneDrive\Desktop\progr\Proga\lab9\lab9\lab9\lab9.cpp(127,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  lab9.vcxproj -> C:\Users\Limbo\OneDrive\Desktop\progr\Proga\lab9\lab9\x64\Debug\lab9.exe
